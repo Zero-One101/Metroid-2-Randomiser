@@ -5,6 +5,7 @@
         public PlasmaBeam()
         {
             Name = "Plasma Beam";
+            Value = 0x80;
         }
     }
 }

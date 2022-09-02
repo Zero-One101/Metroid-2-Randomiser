@@ -8,12 +8,20 @@ namespace Metroid2Randomiser
         World world;
         List<Item> items;
         Random? random;
+        string filePath;
+        int seed;
+        ROM? rom;
 
-        public Randomiser()
+        public Randomiser(string filePath, int seed)
         {
+            this.filePath = filePath;
+            this.seed = seed;
             world = new World();
 
             // Populate list with Key Items
+            // Bombs are excluded from this list. If Bombs are not in the vanilla location, generation regularly fails
+            // This could be an issue with either Metroid II's structure, or my code
+            // ...ok, fine, it's probably my code
             items = new List<Item>()
             {
                 new SpiderBall(),
@@ -31,9 +39,14 @@ namespace Metroid2Randomiser
 
         public void Generate(int seed)
         {
-            random = seed < 0 ? new Random() : new Random(seed);
+            if (seed < 0)
+            {
+                seed = Environment.TickCount;
+            }
+            random = new Random(seed);
+            this.seed = seed;
+
             var generated = false;
-            //world.PlaceItem(0, random, new Bomb(), Enumerable.Empty<Item>().ToImmutableList());
 
             // Place key items first
             do
@@ -53,7 +66,7 @@ namespace Metroid2Randomiser
                     if (!locs.IsEmpty)
                     {
                         var loc = locs[random.Next(locs.Count)];
-                        loc.Item = item;
+                        loc.SetItem(item);
                         Console.WriteLine($"{loc.Item.Name} placed at {loc.Name}");
                     }
                     else
@@ -64,15 +77,37 @@ namespace Metroid2Randomiser
                 }
             } while (!generated);
 
+            // Place "junk" items in the remaining locations
+            List<Item> junk = Enumerable.Repeat((Item) new Missiles(), 22).ToList();
+            junk.AddRange(Enumerable.Repeat(new EnergyTank(), 6));
+            var junkLocs = world.GetAllLocations().Where(x => x.Item is EmptyItem).ToList();
+
+            while (junk.Count > 0 && junkLocs.Count > 0)
+            {
+                var itemIdx = random.Next(junk.Count);
+                var locIdx = random.Next(junkLocs.Count);
+                var item = junk[itemIdx];
+                junk.RemoveAt(itemIdx);
+                var loc = junkLocs[locIdx];
+                junkLocs.RemoveAt(locIdx);
+
+                loc.SetItem(item);
+                Console.WriteLine($"{loc.Item.Name} placed at {loc.Name}");
+            }
             Console.WriteLine("Generated.");
         }
 
-        public void PrintLocations()
+        public void CreateROM()
         {
+            rom = new ROM(filePath, seed);
+            rom.OpenROM();
+
             foreach (var loc in world.GetAllLocations())
             {
-                Console.WriteLine($"{loc.Item.Name} placed at {loc.Name}");
+                rom.WriteByte(loc.Item.Value, loc.Offset);
             }
+
+            rom.CloseROM();
         }
     }
 }

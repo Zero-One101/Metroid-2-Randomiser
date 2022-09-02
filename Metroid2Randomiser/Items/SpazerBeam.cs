@@ -5,6 +5,7 @@
         public SpazerBeam()
         {
             Name = "Spazer Beam";
+            Value = 0x86;
         }
     }
 }

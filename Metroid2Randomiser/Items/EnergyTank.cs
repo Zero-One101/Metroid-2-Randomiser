@@ -5,6 +5,7 @@
         public EnergyTank()
         {
             Name = "Energy Tank";
+            Value = 0x97;
         }
     }
 }

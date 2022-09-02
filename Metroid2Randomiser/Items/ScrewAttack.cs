@@ -5,6 +5,7 @@
         public ScrewAttack()
         {
             Name = "Screw Attack";
+            Value = 0x8A;
         }
     }
 }

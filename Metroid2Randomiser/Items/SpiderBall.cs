@@ -5,6 +5,7 @@
         public SpiderBall()
         {
             Name = "Spider Ball";
+            Value = 0x92;
         }
     }
 }

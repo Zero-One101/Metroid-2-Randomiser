@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Metroid2Randomiser": {
+      "commandName": "Project",
+      "commandLineArgs": "\"F:\\My Documents\\Emulators\\M2 Hacking\\Metroid II - Return of Samus.gb\"\r\n-1"
+    }
+  }
+}

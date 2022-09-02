@@ -3,6 +3,6 @@
     internal abstract class Item
     {
         public string Name { get; protected set; } = String.Empty;
-        public byte value { get; protected set; }
+        public byte Value { get; protected set; } = 0xDB; // Intangible Metroid Egg item
     }
 }

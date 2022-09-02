@@ -5,6 +5,7 @@
         public Missiles()
         {
             Name = "Missiles";
+            Value = 0x99;
         }
     }
 }

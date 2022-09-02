@@ -5,6 +5,7 @@
         public WaveBeam()
         {
             Name = "Wave Beam";
+            Value = 0x84;
         }
     }
 }

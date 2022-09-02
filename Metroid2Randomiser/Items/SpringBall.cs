@@ -5,6 +5,7 @@
         public SpringBall()
         {
             Name = "Spring Ball";
+            Value = 0x94;
         }
     }
 }

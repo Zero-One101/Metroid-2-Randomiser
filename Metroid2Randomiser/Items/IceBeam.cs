@@ -5,6 +5,7 @@
         public IceBeam()
         {
             Name = "Ice Beam";
+            Value = 0x82;
         }
     }
 }

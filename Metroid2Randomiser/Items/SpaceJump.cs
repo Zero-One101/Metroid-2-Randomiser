@@ -5,6 +5,7 @@
         public SpaceJump()
         {
             Name = "Space Jump";
+            Value = 0x90;
         }
     }
 }

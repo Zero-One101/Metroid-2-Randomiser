@@ -5,6 +5,7 @@
         public VariaSuit()
         {
             Name = "Varia Suit";
+            Value = 0x8C;
         }
     }
 }

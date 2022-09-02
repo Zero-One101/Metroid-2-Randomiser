@@ -57,7 +57,7 @@ namespace Metroid2Randomiser
             else
             {
                 var loc = locs[random.Next(locs.Count)];
-                loc.Item = item;
+                loc.SetItem(item);
                 Console.WriteLine($"{loc.Item.Name} placed at {loc.Name}");
                 return true;
             }
@@ -67,7 +67,7 @@ namespace Metroid2Randomiser
         {
             foreach (var loc in Locations)
             {
-                loc.Item = new EmptyItem();
+                loc.SetItem(new EmptyItem());
             }
         }
     }

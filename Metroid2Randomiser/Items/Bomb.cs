@@ -5,6 +5,7 @@
         public Bomb()
         {
             Name = "Bombs";
+            Value = 0x88;
         }
     }
 }
